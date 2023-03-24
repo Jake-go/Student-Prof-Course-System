@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- import bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #476AF9;
+        }
+
+        .container {
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            padding: 20px;
+        }
+    </style>
+    <title>Home</title>
+</head>
+
+<body>
+
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active" th:href="@{/}">Home</a>
+                <a class="nav-link" th:href="@{/addStudent}">Add & View Students</a>
+                <a class="nav-link" th:href="@{/addCourse}">Add & View Courses</a>
+                <a class="nav-link" th:href="@{/addProfessor}">Add & View Professors</a>
+                <a class="nav-link" th:href="@{/assignProfessor}">Assign Professor to Course</a>
+                <a class="nav-link" th:href="@{/assignStudent}">Assign Student to Course</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- This is the main content of the page -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <h1>Home</h1>
+                <p>Welcome to the home page of the Student Course Registration System</p>
+                <p>This system was created by <b>Jacob Golle</b> in February, 2023 at First & Last coffee in the
+                    north end of Toronto on a Saturday, whilst
+                    enjoying some coffee and donuts.
+                </p>
+                <p>My student number is <b>991 429 916</b>. This is <b>Assignment 1</b> and it was prepared for
+                    <b>Jonathan Penava</b> for the course <b>Advanced Java
+                        Frameworks</b> - Course Code: <b>PROG39599</b>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

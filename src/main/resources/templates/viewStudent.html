@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- import bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #476AF9;
+        }
+
+        .container {
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            padding: 20px;
+        }
+    </style>
+    <title>View Student</title>
+</head>
+
+<body>
+    <!-- import navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">View Student: <span
+                th:text="${student.firstName} + ' ' + ${student.lastName}"></span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" th:href="@{/}">Home</a>
+                <a class="nav-link" th:href="@{/addStudent}">Add & View Students</a>
+                <a class="nav-link" th:href="@{/addCourse}">Add & View Courses</a>
+                <a class="nav-link" th:href="@{/addProfessor}">Add & View Professors</a>
+                <a class="nav-link" th:href="@{/assignProfessor}">Assign Professor to Course</a>
+                <a class="nav-link" th:href="@{/assignStudent}">Assign Student to Course</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h1>Student Name: <span th:text="${student.firstName} + ' ' + ${student.lastName}"></span></h1>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <table class="table table-striped">
+                    <h3>Courses Currently Enrolled In</h3>
+                    <thead>
+                        <tr>
+                            <th>Course Name</th>
+                            <th>Course Code</th>
+                            <th>Professor</th>
+                            <th>View Course</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="course : ${student.courses}">
+                            <td th:text="${course.courseName}"></td>
+                            <td th:text="${course.courseCode}"></td>
+                            <td th:if="${course.professor != null}" th:text="${course.professor.name}"></td>
+                            <td><a class="btn btn-outline-warning"
+                                    th:href="@{/viewCourse/{courseId}(courseId=${course.id})}">View Course</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+</body>
+
+</html>

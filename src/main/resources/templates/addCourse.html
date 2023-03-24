@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- import bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #476AF9;
+        }
+
+        .container {
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            padding: 20px;
+        }
+    </style>
+    <title>Add Course</title>
+</head>
+
+<body>
+
+    <!-- import navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Add Course</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" th:href="@{/}">Home</a>
+                <a class="nav-link" th:href="@{/addStudent}">Add & View Students</a>
+                <a class="nav-link active" th:href="@{/addCourse}">Add & View Courses</a>
+                <a class="nav-link" th:href="@{/addProfessor}">Add & View Professors</a>
+                <a class="nav-link" th:href="@{/assignProfessor}">Assign Professor to Course</a>
+                <a class="nav-link" th:href="@{/assignStudent}">Assign Student to Course</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <form th:action="@{/processAddCourse}" th:object="${course}">
+            <h1>Add Course</h1>
+            <div class="form-group">
+                <label for="courseName">Course Name</label>
+                <input type="text" class="form-control" id="courseName" name="courseName" placeholder="Course Name"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="courseCode">Course Code</label>
+                <input type="text" class="form-control" id="courseCode" name="courseCode" placeholder="Course Code"
+                    required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <div class="container mt-5">
+        <table class="table table-striped">
+            <h1>View Courses</h1>
+            <thead>
+                <tr>
+                    <th>Course Name</th>
+                    <th>Course Code</th>
+                    <th>Professor</th>
+                    <th>Students</th>
+                    <th>View Course</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="course : ${courses}">
+                    <td th:text="${course.courseName}"></td>
+                    <td th:text="${course.courseCode}"></td>
+                    <td th:text="${course.professor} ? ${course.professor.name} : 'None'">
+                    <td th:if="${course.students != null}">
+                        <ul>
+                            <li th:each="student : ${course.students}" th:text="${student.firstName}">
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <a th:href="@{/viewCourse/{id}(id=${course.id})}" class="btn btn-outline-primary">View</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

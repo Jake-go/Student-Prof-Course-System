@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- import bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #476AF9;
+        }
+
+        .container {
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            padding: 20px;
+        }
+    </style>
+    <title>View Course</title>
+</head>
+
+<body>
+    <!-- import navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">View Course: <span th:text="${course.courseName}"></span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" th:href="@{/}">Home</a>
+                <a class="nav-link" th:href="@{/addStudent}">Add & View Students</a>
+                <a class="nav-link" th:href="@{/addCourse}">Add & View Courses</a>
+                <a class="nav-link" th:href="@{/addProfessor}">Add & View Professors</a>
+                <a class="nav-link" th:href="@{/assignProfessor}">Assign Professor to Course</a>
+                <a class="nav-link" th:href="@{/assignStudent}">Assign Student to Course</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- table that displays the professors and students as "participants" -->
+    <div class="container mt-5">
+        <h2>Course Name: <span th:text="${course.courseName}"></span></h2>
+        <h2>Course Code: <span th:text="${course.courseCode}"></span></h2>
+        <h3>Professor: <span th:text="${course.professor} ? ${course.professor.name} : 'N/A'"></span></h3>
+        <a class="btn btn-warning" th:if="${course.professor != null}"
+            th:href="@{/processDropProfessor/course/{courseId}/professor/{professorId}(courseId=${course.id}, professorId=${course.professor.id})}">Withdraw
+            Professor</a> <br>
+        <a class="btn btn-success mt-2" th:if="${course.professor != null}"
+            th:href="@{/viewProfessor/{id}(id=${course.professor.id})}">View Professor</a>
+
+        <h3 class="header mt-5">Students</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Drop Student</th>
+                    <th scope="col">View Student</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="student : ${course.students}">
+                    <td th:text="${student.firstName}"></td>
+                    <td th:text="${student.lastName}"></td>
+                    <td><a class="btn btn-outline-danger"
+                            th:href="@{/processDropStudent/course/{courseId}/student/{studentId}(courseId=${course.id}, studentId=${student.id})}">Drop</a>
+                    </td>
+                    <td><a class="btn btn-outline-success" th:href="@{/viewStudent/{id}(id=${student.id})}">View</a>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+</body>
+
+</html>
